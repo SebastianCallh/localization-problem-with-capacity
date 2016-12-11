@@ -9,12 +9,12 @@ fil=prob+'.npz'
 
 npzfile = np.load(fil)
 npzfile.files
-m=npzfile['m']
-n=npzfile['n']
-s=npzfile['s']
-d=npzfile['d']
-f=npzfile['f']
-c=npzfile['c']
+m=npzfile['m'] #Location count, int
+n=npzfile['n'] #Customer count, int
+s=npzfile['s'] #Capacity, vector
+d=npzfile['d'] #Demand, vector
+f=npzfile['f'] #Initial cost, vector
+c=npzfile['c'] #Flow cost, matrix
 #print 'm:',m,' n:',n
 #print 's:',s
 #print 'd:',d
@@ -28,20 +28,24 @@ y=np.zeros((m),dtype=np.int)
 ss=s
 dd=d
 
+locations = [zip(c[i], f[i]) for i in range(c.shape[1])]
+print(locations)
+#locations.sort(lambda x, y: sum(y) - sum(x))
+#print([sum(x) for x in locations])
+
 while sum(dd)>0:
     break
-    # find facility, find customer, send, at min cost
     # set x and y
-    # deduct from ss and dd, 
+    # deduct from ss and dd,
     # --------
 
 
 
 elapsed = time.time() - t1
-print 'Tid: '+str('%.4f' % elapsed)
+print('Tid: ' + str('%.4f' % elapsed))
 
 cost=sum(sum(np.multiply(c,x))) + e*np.dot(f,y)
-print 'Problem:',prob,' Totalkostnad: '+str(cost)
-print 'y:',y
-print 'Antal byggda fabriker:',sum(y),'(av',m,')'
+print('Problem:',prob,' Totalkostnad: ' + str(cost))
+print('y:',y)
+print('Antal byggda fabriker:',sum(y),'(av',m,')')
 input('')
