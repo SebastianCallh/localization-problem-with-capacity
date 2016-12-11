@@ -29,23 +29,15 @@ ss=s
 dd=d
 
 #Create a list of tuples on the form (index, total_flow_cost + e*construction_cost) sorted on cost in descending order
-indicies = [(i, sum(c[i]) + e*f[i]) for i in range(m)]
+indicies = [(i, int(sum(c[i])) + int(e*f[i])) for i in range(m)]
 indicies.sort(lambda x, y: y[1] - x[1])
 locations = [i[0] for i in indicies]
-print(locations)
 
+u = n - 1
 while sum(dd) > 0:
-    l= locations.pop()
+    l = locations.pop()
     y[l] = 1
-    u = n - 1
-    '''
-    print(u)
-    print(dd[4])
-    print(dd[3])
-    print(dd[2])
-    print(dd[1])
-    print(dd[0])
-    '''
+
     while ss[l] > 0:
 
         #ship as much as possible from the factory
@@ -54,9 +46,8 @@ while sum(dd) > 0:
         x[l, u] = w
         ss[l] = ss[l] - w
         dd[u] = dd[u] - w
-        print(sum)
         
-        #if the customer want more than the current factory could supply
+        #if the customer want more than the current factory can supply
         #we construct and begin shipping from the next factory (if we are done we break out of both loops)
         #else start shipping to the next customer
         if dd[u] > 0 or sum(dd) == 0:
